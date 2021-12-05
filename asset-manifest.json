@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/aviasales-test-frontend-react/static/css/main.ddb8e30f.chunk.css",
+    "main.js": "/aviasales-test-frontend-react/static/js/main.5820914d.chunk.js",
+    "main.js.map": "/aviasales-test-frontend-react/static/js/main.5820914d.chunk.js.map",
+    "runtime-main.js": "/aviasales-test-frontend-react/static/js/runtime-main.cbb0c9b4.js",
+    "runtime-main.js.map": "/aviasales-test-frontend-react/static/js/runtime-main.cbb0c9b4.js.map",
+    "static/js/2.11c922ea.chunk.js": "/aviasales-test-frontend-react/static/js/2.11c922ea.chunk.js",
+    "static/js/2.11c922ea.chunk.js.map": "/aviasales-test-frontend-react/static/js/2.11c922ea.chunk.js.map",
+    "index.html": "/aviasales-test-frontend-react/index.html",
+    "static/css/main.ddb8e30f.chunk.css.map": "/aviasales-test-frontend-react/static/css/main.ddb8e30f.chunk.css.map",
+    "static/js/2.11c922ea.chunk.js.LICENSE.txt": "/aviasales-test-frontend-react/static/js/2.11c922ea.chunk.js.LICENSE.txt",
+    "static/media/tickets-list.scss": "/aviasales-test-frontend-react/static/media/tg.d1535eb1.png",
+    "static/media/logo.38d71b76.png": "/aviasales-test-frontend-react/static/media/logo.38d71b76.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.cbb0c9b4.js",
+    "static/js/2.11c922ea.chunk.js",
+    "static/css/main.ddb8e30f.chunk.css",
+    "static/js/main.5820914d.chunk.js"
+  ]
+}
