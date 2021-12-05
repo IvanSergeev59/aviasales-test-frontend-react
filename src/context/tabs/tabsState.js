@@ -7,15 +7,16 @@ import {CHANGE_TABS, FETCH_TICKETS, TICKETS_LOADED, FETCH_ERROR} from "../types"
 export const TabsState = ({children}) => {
     const initialState = {
         tabsButtons : [ 'selected', 'unselected', 'unselected'],
-        loading: true,
+        loading: 'f',
         ticketUrlId:'',
-        loadingError: false
+        loadingError:'hidden',
+        tickets:[]
     }
 
     const [state, dispatch] = useReducer (tabsReducer, initialState);
 
     // tickets successfully loaded
-    const loaded = () => dispatch((({type:TICKETS_LOADED})))
+    const loaded = () => dispatch(({type:TICKETS_LOADED}))
 
     // user change tabs button
     const onChangeTabs = (item) => dispatch(({type: CHANGE_TABS, payload: item}));  
@@ -24,6 +25,21 @@ export const TabsState = ({children}) => {
     const calculateFlyingTime = (start, duration) => {
         const sum = Number(start)+Number(duration);
         return sum
+    }
+
+    const sortCheaper = (arr) => {
+
+        arr.sort((a,b) => {
+            return a.price - b.price
+        })
+        return arr
+    }
+
+    const sortFaster = (arr) => {
+        arr.sort((a,b) => {
+            return a.duration_sum - b.duration_sum
+        })
+        return arr
     }
 
     // calculation finish hours mins 
@@ -83,7 +99,7 @@ export const TabsState = ({children}) => {
     }
 
     const getTickets = async () => {
-        axios.get('https://front-test.beta.aviasales.ru/searcfh')
+        axios.get('https://front-test.beta.aviasales.ru/search')
         .then((res) => {
            
             return res.data.searchId
@@ -93,9 +109,16 @@ export const TabsState = ({children}) => {
         })
        
         .then((res) => {
+            
             axios.get(`https://front-test.beta.aviasales.ru/tickets?searchId=${res}`)
+            
+        .catch((error) => {
+            
+            dispatch(({type: FETCH_ERROR, payload: error}))
+        })
             .then((res) => {
-                const ticketList = res.data.tickets.map(function(ticket) {
+               loaded()
+                let ticketList = res.data.tickets.map(function(ticket) {
                     let duration_to_hours = Math.floor((ticket.segments[0].duration)/60);
                     let duration_to_mins = (ticket.segments[0].duration)%60;
                     let duration_back_hours = Math.floor((ticket.segments[1].duration)/60);
@@ -109,10 +132,9 @@ export const TabsState = ({children}) => {
                     let backFlyingTimes = calculateFlyingHours(back_time_start_hour, duration_back_hours,
                         back_time_start_min, duration_back_mins);
                     let transfers = transfers__length_func(ticket);
-                    
+                    let duration_sum = ticket.segments[0].duration + ticket.segments[1].duration
 
                     return {
-                        loading: false,
                         price: ticket.price,
                         carrier_logo: ticket.carrier,
                         to_origin: ticket.segments[0].origin,
@@ -123,7 +145,7 @@ export const TabsState = ({children}) => {
                         to_mins: duration_to_mins,
                         back_hours: duration_back_hours,
                         back_mins: duration_back_mins,
-                      
+                        duration_sum,
                         to_transfers: transfers.to,
                        
                         back_transfers: transfers.back,
@@ -134,12 +156,14 @@ export const TabsState = ({children}) => {
                         back_time_start_hour,
                         back_time_start_min,
                         
-                }
+                    }
                 }
                 )
-
-                
-                dispatch(({type: FETCH_TICKETS, payload: ticketList}));
+              
+                console.log(ticketList)
+                const ololo = sortFaster(ticketList);
+                console.log(ololo)
+                dispatch(({type: FETCH_TICKETS, payload: ololo}));
             })
            
         })
@@ -147,10 +171,10 @@ export const TabsState = ({children}) => {
     }
 
 
-    const {tabsButtons, tickets, loading} = state;
+    const {tabsButtons, tickets, loading, loadingError} = state;
 
     return (
-        <TabsContext.Provider value={{tabsButtons, onChangeTabs, getTickets, tickets, loading}}>
+        <TabsContext.Provider value={{tabsButtons, onChangeTabs, getTickets, tickets, loading, loadingError}}>
             {children}
         </TabsContext.Provider>
     )

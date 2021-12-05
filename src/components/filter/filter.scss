@@ -1,6 +1,9 @@
 .filter {
     width: 30.76%;    
     background: white;
+    display: flex;
+    flex-direction: column;
+    max-height: 270px;
 
     & h2 {
         width: 82.75%;

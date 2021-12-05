@@ -15,12 +15,12 @@ const handlers = {
         ,
       [FETCH_TICKETS]: (state, {payload}) => {
         return (
-          {...state, tickets: payload, loading:false}
+          {...state, tickets: payload}
         )
       },
       [FETCH_URL_ID]: (state, {payload}) => ({...state, ticketUrlId: payload}),  
-      [TICKETS_LOADED] :(state) => ({...state, loading:false}),
-      [FETCH_ERROR]: (state) => ({...state, loadingError:true}),
+      [TICKETS_LOADED] :(state) => ({...state, loading:'hidden'}),
+      [FETCH_ERROR]: (state) => ({...state, loadingError:'f'}),
       DEFAULT: state => state
 }
 
