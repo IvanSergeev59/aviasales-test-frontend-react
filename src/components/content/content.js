@@ -1,13 +1,14 @@
-import React, { Fragment } from "react";
+import React from "react";
 import './content.scss';
 import Filter from "../filter";
+import Tickets from "../tickets";
 
 const Content = () => {
     return (
-        <React.Fragment>
-            <Filter />
+        <section className="content" >
+            <Filter/>
             <Tickets />
-        </React.Fragment>
+        </section>
     )
 }
 
