@@ -5,12 +5,13 @@ import "./tabs.scss";
 
 
 const Tabs = () => {
-
-    const {tabsButtons, onChangeTabs} = useContext(TabsContext)
+    const {sorting, updatedTickets, tabsButtons, onChangeTabs} = useContext(TabsContext);
     
-    const changeTabs = (event) => {
-      
-        onChangeTabs(event.target.id);
+    
+    const changeTabs = (event) => {     
+        const id = event.target.id
+        onChangeTabs(id);
+        sorting[id](updatedTickets)
        
     }
 

@@ -36,42 +36,38 @@
                 color: rgba(74, 74, 74, 1);
         
             }
+        }
     }
 
-
-}
-
-
-
-li {
-    margin-top: 20px;
-}
-
-.ticket__header {
-    width: 92%;
-    margin: 0 auto;
-    margin-top: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-    & img {
-        width: 110px;
-        height: 36px;
-        align-self: center;
+    li {
+        margin-top: 20px;
     }
 
-    & p {
-        font-family: "Open Sans";
-        font-style: normal;
-        font-weight: 600;
-        font-size: 24px;
-        line-height: 24px;
+    .ticket__header {
+        width: 92%;
+        margin: 0 auto;
+        margin-top: 20px;
         display: flex;
-        align-items: center;
-        color: #2196F3;
+        flex-direction: row;
+        justify-content: space-between;
+
+        & img {
+            width: 110px;
+            height: 36px;
+            align-self: center;
+        }
+
+        & p {
+            font-family: "Open Sans";
+            font-style: normal;
+            font-weight: 600;
+            font-size: 24px;
+            line-height: 24px;
+            display: flex;
+            align-items: center;
+            color: #2196F3;
+        }
     }
-}
 
 
 }
@@ -94,31 +90,100 @@ li {
     margin-top: 20px;
 }
 
-.hidden {
-    display: none;
+@media (min-width: 360px) and (max-width: 768px) {
+    .ticket {
+
+        & .ticket__to-from {
+    
+            & .ticket-block {
+                width: 30.5%;
+            
+                & p:first-of-type {
+                    font-family: "Open Sans";
+                    font-size: 10px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: 18px;
+                    letter-spacing: 0.5px;
+                    text-align: left;
+                    color: rgba(160, 176, 185, 1);
+                }
+            
+                & p {
+                    font-family: "Open Sans";
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: 21px;
+                    letter-spacing: 0px;
+                    text-align: left;
+                    color: rgba(74, 74, 74, 1);
+            
+                }
+            }
+        }
+    
+        li {
+            margin-top: 20px;
+        }
+    
+        .ticket__header {
+            width: 92%;
+            margin-top: 10px;
+    
+            & img {
+                width: 110px;
+                height: 36px;
+                align-self: center;
+            }
+    
+            & p {
+                font-size: 20px;
+                line-height: 24px;
+            }
+        }   
+    }      
+    
+    .ticket__button {
+        width: 100%;
+        background: #2196F3;
+        border-radius: 5px;
+        height: 30px;
+        font-family: "Open Sans";
+        font-style: normal;
+        font-weight: 600;
+        font-size: 10px;
+        line-height: 20px;
+        color: rgba(255, 255, 255, 1);
+        margin-top: 10px;
+    }
 }
 
-.S7 {
-    content: url(../../images/s7.png)
-}
-
-.FG{
-    content: url(../../images/fg.png)
-}
-.EK {
-    content: url(../../images/ek.png)
-}
-.EY {
-    content: url(../../images/ey.png)
-}
-
-.MH {
-    content: url(../../images/mh.png)
-}
-.TG {
-    content: url(../../images/tg.png)
-}
-
-.FV {
-    content: url(../../images/fv.png)
-}
+    .hidden {
+        display: none;
+    }
+    
+    .S7 {
+        content: url(../../images/s7.png)
+    }
+    
+    .FG{
+        content: url(../../images/fg.png)
+    }
+    .EK {
+        content: url(../../images/ek.png)
+    }
+    .EY {
+        content: url(../../images/ey.png)
+    }
+    
+    .MH {
+        content: url(../../images/mh.png)
+    }
+    .TG {
+        content: url(../../images/tg.png)
+    }
+    
+    .FV {
+        content: url(../../images/fv.png)
+    }

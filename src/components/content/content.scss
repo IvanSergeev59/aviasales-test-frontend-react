@@ -4,3 +4,15 @@
     width: 78.54%;
     justify-content: space-between;
 }
+
+@media (min-width: 768px) and (max-width: 1200px) {
+    .content {
+        width: 90%;
+    }
+}
+
+@media (min-width: 360px) and (max-width: 768px) {
+    .content {
+        width: 100%;
+    }
+}

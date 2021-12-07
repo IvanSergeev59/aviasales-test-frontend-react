@@ -2,7 +2,7 @@ import React, { useReducer} from "react";
 import { TabsContext } from './tabsContext';
 import axios from 'axios'
 import { tabsReducer } from "./tabsReducer";
-import {CHANGE_TABS, FETCH_TICKETS, TICKETS_LOADED, FETCH_ERROR} from "../types";
+import {CHANGE_TABS, FETCH_TICKETS, TICKETS_LOADED, FETCH_ERROR, UPDATE_TICKETS} from "../types";
 
 export const TabsState = ({children}) => {
     const initialState = {
@@ -10,7 +10,8 @@ export const TabsState = ({children}) => {
         loading: 'f',
         ticketUrlId:'',
         loadingError:'hidden',
-        tickets:[]
+        tickets:[], 
+        updatedTickets:[]
     }
 
     const [state, dispatch] = useReducer (tabsReducer, initialState);
@@ -21,27 +22,58 @@ export const TabsState = ({children}) => {
     // user change tabs button
     const onChangeTabs = (item) => dispatch(({type: CHANGE_TABS, payload: item}));  
 
-    // calculation arrivet time 
+    // calculation arrived time 
     const calculateFlyingTime = (start, duration) => {
         const sum = Number(start)+Number(duration);
         return sum
     }
-
+    // sorting tickets by cost
     const sortCheaper = (arr) => {
 
         arr.sort((a,b) => {
             return a.price - b.price
         })
-        return arr
+        dispatch(({type: UPDATE_TICKETS, payload: arr}))
     }
-
+    // sorting tickets by duration
     const sortFaster = (arr) => {
         arr.sort((a,b) => {
             return a.duration_sum - b.duration_sum
         })
-        return arr
+        dispatch(({type: UPDATE_TICKETS, payload: arr}))
     }
 
+    // sorting tickets by cost and duration
+    const sortCheapAndFast = (arr) => {
+        sortCheaper(arr);       
+        dispatch(({type: UPDATE_TICKETS, payload: arr}))
+    }
+
+    const sortTransfers = (arr, filters) => {
+        let sortedArr = arr;
+            if (filters[0]==="selected"){             
+            sortedArr = arr;       }     
+            else {
+            if (filters[1] === 'unselected') {
+                sortedArr = sortedArr.filter((item) => !(item.to_transfers.length==="БЕЗ ПЕРЕСАДОК" || item.back_transfers.length==="БЕЗ ПЕРЕСАДОК"));                
+            }  
+            if (filters[2] === 'unselected') {
+                sortedArr = sortedArr.filter((item) => !(item.to_transfers.length==="1 ПЕРЕСАДКА" || item.back_transfers.length==="1 ПЕРЕСАДКА"));                
+            }  
+            if (filters[3] === 'unselected') {
+                sortedArr = sortedArr.filter((item) => !(item.to_transfers.length==="2 ПЕРЕСАДКИ" || item.back_transfers.length==="2 ПЕРЕСАДКИ"));                
+            }  
+            if (filters[4] === 'unselected') {
+                sortedArr = sortedArr.filter((item) => !(item.to_transfers.length==="3 ПЕРЕСАДКИ" || item.back_transfers.length==="3 ПЕРЕСАДКИ"));                
+            }           
+
+        }
+    
+        console.log(sortedArr);
+        dispatch(({type: UPDATE_TICKETS, payload: sortedArr}))
+        
+    }
+    
     // calculation finish hours mins 
     const calculateFlyingHours = (start_hours, duration_hours, start_mins, duration_mins) => {
         let hours = calculateFlyingTime(start_hours, duration_hours);
@@ -56,7 +88,7 @@ export const TabsState = ({children}) => {
                return time  ;                
                 } return time         }
         time =overmins(time);
-        if(time.hours>23) {time.hours = (time.hours)%24; console.log('ololo')}
+        if(time.hours>23) {time.hours = (time.hours)%24;}
         if(time.hours < 10) {time.hours = '0' + time.hours}
         if(time.mins < 10) { time.mins = '0' + time.mins}
         return time
@@ -157,13 +189,11 @@ export const TabsState = ({children}) => {
                         back_time_start_min,
                         
                     }
-                }
-                )
-              
-                console.log(ticketList)
-                const ololo = sortFaster(ticketList);
-                console.log(ololo)
-                dispatch(({type: FETCH_TICKETS, payload: ololo}));
+                })
+                
+                sortCheaper(ticketList);
+                
+                dispatch(({type: FETCH_TICKETS, payload: ticketList}));
             })
            
         })
@@ -171,10 +201,10 @@ export const TabsState = ({children}) => {
     }
 
 
-    const {tabsButtons, tickets, loading, loadingError} = state;
-
+    const {tabsButtons, tickets, loading, loadingError, updatedTickets} = state;
+    const sorting = [sortCheaper, sortFaster, sortCheapAndFast]
     return (
-        <TabsContext.Provider value={{tabsButtons, onChangeTabs, getTickets, tickets, loading, loadingError}}>
+        <TabsContext.Provider value={{tabsButtons, onChangeTabs, getTickets, tickets, loading, loadingError, sorting, updatedTickets, sortTransfers}}>
             {children}
         </TabsContext.Provider>
     )

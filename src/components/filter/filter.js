@@ -1,14 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "./filter.scss";
 import { FilterContext } from "../../context/filter/filterContext";
+import { TabsContext } from "../../context/tabs/tabsContext";
 
 const Filter = () => {
-    const {filters, onChangeCheckbox} = useContext(FilterContext)
+    const {filters, onChangeCheckbox} = useContext(FilterContext);
+    
+    const onChecked = (event) => {         
+        const id = event.target.id;
+        onChangeCheckbox(id);
 
-    const onChecked = (event) => {
-         
-        onChangeCheckbox(event.target.id)
     }
+
     return (
       
         <section className="filter">

@@ -1,4 +1,4 @@
-import { CHANGE_TABS,FETCH_TICKETS,FETCH_URL_ID, TICKETS_LOADED, FETCH_ERROR } from "../types";
+import { CHANGE_TABS,FETCH_TICKETS,FETCH_URL_ID, TICKETS_LOADED, FETCH_ERROR, UPDATE_TICKETS } from "../types";
 
 const handlers = {
     [CHANGE_TABS]: (state, {payload}) => {
@@ -21,6 +21,7 @@ const handlers = {
       [FETCH_URL_ID]: (state, {payload}) => ({...state, ticketUrlId: payload}),  
       [TICKETS_LOADED] :(state) => ({...state, loading:'hidden'}),
       [FETCH_ERROR]: (state) => ({...state, loadingError:'f'}),
+      [UPDATE_TICKETS]: (state, {payload}) => ({...state, updatedTickets: payload}),
       DEFAULT: state => state
 }
 

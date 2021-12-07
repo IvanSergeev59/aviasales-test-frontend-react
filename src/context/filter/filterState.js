@@ -5,10 +5,10 @@ import {CHANGE_CHECKBOX} from '../types'
 
 export const FilterState = ({children}) => {
     const initialState = {
-        filters: ['unselected', 'unselected',
-        'unselected',
-        'unselected',
-        'unselected'
+        filters: ['selected', 'selected',
+        'selected',
+        'selected',
+        'selected'
         ]
     }
     const [state, dispatch] = useReducer(filterReducer, initialState);

@@ -1,17 +1,25 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./tickets-list.scss";
 import { TabsContext } from "../../context/tabs/tabsContext";
+import { FilterContext } from "../../context/filter/filterContext";
 
 
 const TicketsList = () => {
-    const {tickets, loading, loadingError, getTickets} = useContext(TabsContext);  
+    const {tickets, loading, loadingError, getTickets, sortTransfers, updatedTickets} = useContext(TabsContext);  
+    
+    const {filters} = useContext(FilterContext);
     const [showTicketsLength, setAddTicketsLength] = useState(5);
+
     useEffect(() => {
         getTickets()}, []);
-          
+    useEffect(() => {
+        sortTransfers(tickets, filters)}, // eslint-disable-next-line react-hooks/exhaustive-deps 
+        [filters]);
+
+
             const Ticket = () => {
                 return (
-                tickets.slice(0,showTicketsLength).map(function(ticket, index)  {
+                    updatedTickets.slice(0,showTicketsLength).map(function(ticket, index)  {
                     return (
                 <li className="ticket" key={index}>
                     <div className ="ticket__header">
