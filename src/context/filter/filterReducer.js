@@ -1,13 +1,10 @@
 import {CHANGE_CHECKBOX} from "../types";
-
-
 const handlers = {
     [CHANGE_CHECKBOX] : (state, {payload}) => {
-       const filters = state.filters.slice(0);
-       
-
+        const filters = state.filters.slice(0);       
+        // changing checkboxes classes after user clicked 
        if (filters[payload] === 'selected') {        
-        filters[payload]  = 'unselected'
+           filters[payload]  = 'unselected'
        }
        else {        
         filters[payload]  = 'selected'
@@ -25,17 +22,12 @@ const handlers = {
        }
        if (filters[1]!=='selected' || filters[2]!=='selected' || filters[3]!=='selected' || filters[4]!=='selected'){
         filters[0]='unselected'
-    }
-
-      
-    return (
-    {...state, filters: filters}
-    )
-    }
-    ,
-
-
-
+    }      
+        return (
+            {...state, filters: filters}
+        )
+    },
+    
     DEFAULT: state => state
 }
 

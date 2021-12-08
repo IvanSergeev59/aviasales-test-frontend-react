@@ -3,12 +3,15 @@ import "./tickets-list.scss";
 import { TabsContext } from "../../context/tabs/tabsContext";
 import { FilterContext } from "../../context/filter/filterContext";
 
-
 const TicketsList = () => {
     const {tickets, loading, loadingError, getTickets, sortTransfers, updatedTickets, buttonAddLoading} = useContext(TabsContext);  
     
     const {filters} = useContext(FilterContext);
+
+    // counts of rendering tickets
     const [showTicketsLength, setAddTicketsLength] = useState(5);
+
+    // show or hidden button whitch adding rendered tickets
     const [buttonShowed, setButtonHidden] = useState('showed');
 
     // based loaded tickets
@@ -21,15 +24,16 @@ const TicketsList = () => {
         sortTransfers(tickets, filters); setButtonHidden('showed'); setAddTicketsLength(5) }, // eslint-disable-next-line react-hooks/exhaustive-deps 
         [filters]);  
    
+    // rendering 1-5 tickets and if tickets arr has'nt more tickets, hidden button
     const onButtonAddTickets = () => {
         if (showTicketsLength<updatedTickets.length ) {setAddTicketsLength(showTicketsLength+5)} else {setButtonHidden('hidden')};
         if (showTicketsLength+5>updatedTickets.length) {setButtonHidden('hidden')}
     }
 
-            const Ticket = () => {
-                return (
-                    updatedTickets.slice(0,showTicketsLength).map(function(ticket, index)  {
-                    return (
+    const Ticket = () => {
+        return (
+        updatedTickets.slice(0,showTicketsLength).map(function(ticket, index)  {
+            return (
                 <li className="ticket" key={index}>
                     <div className ="ticket__header">
                         <p>{ticket.price} &#8381;</p>
@@ -64,48 +68,44 @@ const TicketsList = () => {
                             <p>{ticket.back_transfers.length}</p>
                             <p>{ticket.back_transfers.stops}</p>
                         </div>
-                        </div>                                      
+                    </div>                                      
                 </li> 
-                
-                     )
+                    
+                )
             })
-                )
-            }
-            const LoadingError = () => {
-                return (                    
-                    <div>
-                        <h2 className={loadingError}>Возникла проблема при загрузке</h2>
-                        <button className={loadingError} onClick={() => getTickets()}>ПОВТОРИТЬ ЗАГРУЗКУ</button>
-                    </div>
-                )
-            }
-            const Loading = () => {
-                return (
-                    <h2 className={loading}>ИДЕТ ЗАГРУЗКА...</h2>
-                )
-            }
+        )
+    }
+    const LoadingError = () => {
+        return (                    
+            <div>
+                <h2 className={loadingError}>Возникла проблема при загрузке</h2>
+                <button className={loadingError} onClick={() => getTickets()}>ПОВТОРИТЬ ЗАГРУЗКУ</button>
+            </div>
+        )
+    }
+    const Loading = () => {
+        return (
+            <h2 className={loading}>ИДЕТ ЗАГРУЗКА...</h2>
+        )
+    }
 
-            const Button = () => {
-                let buttonClass = `${buttonAddLoading} ${buttonShowed}`
-                return (
-                    <button className={buttonClass} onClick={() => onButtonAddTickets()}>ПОКАЗАТЬ ЕЩЕ 5 БИЛЕТОВ</button>
-                )
-            }
+    const Button = () => {
+        let buttonClass = `${buttonAddLoading} ${buttonShowed}`
+        return (
+            <button className={buttonClass} onClick={() => onButtonAddTickets()}>ПОКАЗАТЬ ЕЩЕ 5 БИЛЕТОВ</button>
+        )
+    }
             
-                    return (
-                        <ul className="ticket__ul"> 
-                            <Loading />                        
-                            <LoadingError />
-                            <Ticket />
-                            <Button />
+    return (
+        <ul className="ticket__ul"> 
+            <Loading />                        
+            <LoadingError />
+            <Ticket />
+            <Button />
                             
-                        </ul>
-                    )                
+        </ul>
+    )                
             
               
-        }
-          
-   
-
-
+}
 export default TicketsList

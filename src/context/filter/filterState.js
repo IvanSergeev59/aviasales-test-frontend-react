@@ -4,6 +4,7 @@ import { filterReducer } from "./filterReducer";
 import {CHANGE_CHECKBOX} from '../types'
 
 export const FilterState = ({children}) => {
+    //default : all checkbox on
     const initialState = {
         filters: ['selected', 'selected',
         'selected',
@@ -14,9 +15,8 @@ export const FilterState = ({children}) => {
     const [state, dispatch] = useReducer(filterReducer, initialState);
 
     const onChangeCheckbox = (item) => dispatch(({type: CHANGE_CHECKBOX, payload:item}))
-
-
-        const {filters} = state;
+    
+    const {filters} = state;
 
         return (
             <FilterContext.Provider value={{

@@ -2,16 +2,12 @@ import React, {useContext} from "react";
 import { TabsContext } from "../../context/tabs/tabsContext" 
 import "./tabs.scss";
 
-
-
 const Tabs = () => {
-    const {tabsButtons, onChangeTabs} = useContext(TabsContext);
-    
+    const {tabsButtons, onChangeTabs} = useContext(TabsContext);    
     
     const changeTabs = (event) => {     
         const id = event.target.id
-        onChangeTabs(id);
-        
+        onChangeTabs(id);        
     }
 
     return (

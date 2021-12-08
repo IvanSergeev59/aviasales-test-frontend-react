@@ -45,7 +45,7 @@ const Filter = () => {
             </li>
             </ul>
         </section>
-        <a href="/#"><img className="backToTopButton" alt="backToTopButton" src={backToTopButton}></img></a>
+        <a href="/#"  className="backToTopButton"><img alt="backToTopButton" src={backToTopButton}></img></a>
         </React.Fragment>
     )
 }

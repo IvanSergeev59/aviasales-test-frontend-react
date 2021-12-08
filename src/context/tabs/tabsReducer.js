@@ -20,7 +20,7 @@ const handlers = {
       },
       [FETCH_URL_ID]: (state, {payload}) => ({...state, ticketUrlId: payload}),  
       [TICKETS_LOADED] :(state) => ({...state, loading:'hidden'}),
-      [FETCH_ERROR]: (state) => ({...state, loadingError:'f'}),
+      [FETCH_ERROR]: (state) => ({...state, loadingError:'showed'}),
       [UPDATE_TICKETS]: (state, {payload}) => ({...state, updatedTickets: payload}),
       DEFAULT: state => state
 }

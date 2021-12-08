@@ -10,5 +10,4 @@ const Tickets = () => {
         </section>
     )
 }
-
 export default Tickets
