@@ -2,8 +2,10 @@
     width: 30.76%;    
     background: white;
     display: flex;
+    position: sticky;
     flex-direction: column;
     max-height: 270px;
+    top:3%;
 
     & h2 {
         width: 82.75%;
@@ -100,13 +102,20 @@
     }
     
 }
+
+.backToTopButton {
+  width: 40px;
+  height: 40px;
+  position: fixed;
+  display: flex;
+  left:11%;
+  bottom: 5%;
+}
+
+
 @media (min-width: 360px) and (max-width: 768px)  {
   .filter {
-    width: 30.76%;    
-    background: white;
-    display: flex;
-    flex-direction: column;
-    max-height: 100%;
+    width: 30.76%; 
 
     & h2 {
         width: 82.75%;
@@ -115,7 +124,7 @@
         font-family: "Open Sans";
         font-style: normal;
         font-weight: 600;
-        font-size: 11px;
+        font-size: 10px;
         line-height: 15px;        
         letter-spacing: 0.5px;
         text-transform: uppercase;        
@@ -148,7 +157,7 @@
             font-family: "Open Sans";
             font-style: normal;
             font-weight: normal;
-            font-size: 12px;
+            font-size: 11px;
             line-height: 20px;
             /* identical to box height, or 154% */
 
@@ -203,4 +212,14 @@
     }
     
 }
+.backToTopButton {
+  width: 40px;
+  height: 40px;
+  position: fixed;
+  display: flex;
+  left:2%;
+  bottom: 3%;
 }
+}
+
+

@@ -7,11 +7,13 @@ import {CHANGE_TABS, FETCH_TICKETS, TICKETS_LOADED, FETCH_ERROR, UPDATE_TICKETS}
 export const TabsState = ({children}) => {
     const initialState = {
         tabsButtons : [ 'selected', 'unselected', 'unselected'],
+        tabId: '0',
         loading: 'f',
         ticketUrlId:'',
         loadingError:'hidden',
         tickets:[], 
-        updatedTickets:[]
+        updatedTickets:[],
+        buttonAddLoading: 'hidden'
     }
 
     const [state, dispatch] = useReducer (tabsReducer, initialState);
@@ -20,7 +22,10 @@ export const TabsState = ({children}) => {
     const loaded = () => dispatch(({type:TICKETS_LOADED}))
 
     // user change tabs button
-    const onChangeTabs = (item) => dispatch(({type: CHANGE_TABS, payload: item}));  
+    const onChangeTabs = (item) =>  {
+    dispatch(({type: CHANGE_TABS, payload: item})); 
+    sorting[item](updatedTickets)
+    }
 
     // calculation arrived time 
     const calculateFlyingTime = (start, duration) => {
@@ -68,26 +73,20 @@ export const TabsState = ({children}) => {
             }           
 
         }
-    
-        console.log(sortedArr);
+        sorting[tabId](sortedArr);
         dispatch(({type: UPDATE_TICKETS, payload: sortedArr}))
         
     }
     
     // calculation finish hours mins 
     const calculateFlyingHours = (start_hours, duration_hours, start_mins, duration_mins) => {
-        let hours = calculateFlyingTime(start_hours, duration_hours);
-       
+        let hours = calculateFlyingTime(start_hours, duration_hours);       
         let mins = calculateFlyingTime(start_mins, duration_mins);
-        let time ={hours,mins}
-        const overmins = (time) => {
-            if(time.mins > 59) {
-               time.mins=(time.mins)%60;
-               time.hours=time.hours +1;
-              
-               return time  ;                
-                } return time         }
-        time =overmins(time);
+        let time ={hours,mins}        
+        if(time.mins > 59) {
+            time.mins=(time.mins)%60;
+            time.hours=time.hours +1;
+        }        
         if(time.hours>23) {time.hours = (time.hours)%24;}
         if(time.hours < 10) {time.hours = '0' + time.hours}
         if(time.mins < 10) { time.mins = '0' + time.mins}
@@ -178,8 +177,7 @@ export const TabsState = ({children}) => {
                         back_hours: duration_back_hours,
                         back_mins: duration_back_mins,
                         duration_sum,
-                        to_transfers: transfers.to,
-                       
+                        to_transfers: transfers.to,                       
                         back_transfers: transfers.back,
                         to_time_start_hour: to_time_start_hour,
                         to_time_start_min: to_time_start_min,
@@ -201,10 +199,10 @@ export const TabsState = ({children}) => {
     }
 
 
-    const {tabsButtons, tickets, loading, loadingError, updatedTickets} = state;
+    const {tabsButtons, tickets, loading, loadingError, updatedTickets, tabId, buttonAddLoading} = state;
     const sorting = [sortCheaper, sortFaster, sortCheapAndFast]
     return (
-        <TabsContext.Provider value={{tabsButtons, onChangeTabs, getTickets, tickets, loading, loadingError, sorting, updatedTickets, sortTransfers}}>
+        <TabsContext.Provider value={{tabsButtons, onChangeTabs, getTickets, tickets, loading, loadingError, sorting, updatedTickets, sortTransfers, tabId, buttonAddLoading}}>
             {children}
         </TabsContext.Provider>
     )

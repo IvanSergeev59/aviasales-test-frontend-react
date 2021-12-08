@@ -6,16 +6,16 @@ const handlers = {
         buttonList[0]='unselected';
         buttonList[1]='unselected';
         buttonList[2]='unselected';
-        buttonList[payload] = 'selected'
+        buttonList[payload] = 'selected';
 
       return (        
-        {...state, tabsButtons:buttonList}        
+        {...state, tabsButtons:buttonList, tabId:payload}        
         )
       }
         ,
       [FETCH_TICKETS]: (state, {payload}) => {
         return (
-          {...state, tickets: payload}
+          {...state, tickets: payload, loading:'hidden', loadingError: 'hidden', buttonAddLoading: 'ticket__button'}
         )
       },
       [FETCH_URL_ID]: (state, {payload}) => ({...state, ticketUrlId: payload}),  

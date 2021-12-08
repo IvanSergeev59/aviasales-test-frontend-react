@@ -5,17 +5,26 @@ import { FilterContext } from "../../context/filter/filterContext";
 
 
 const TicketsList = () => {
-    const {tickets, loading, loadingError, getTickets, sortTransfers, updatedTickets} = useContext(TabsContext);  
+    const {tickets, loading, loadingError, getTickets, sortTransfers, updatedTickets, buttonAddLoading} = useContext(TabsContext);  
     
     const {filters} = useContext(FilterContext);
     const [showTicketsLength, setAddTicketsLength] = useState(5);
+    const [buttonShowed, setButtonHidden] = useState('showed');
 
+    // based loaded tickets
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         getTickets()}, []);
-    useEffect(() => {
-        sortTransfers(tickets, filters)}, // eslint-disable-next-line react-hooks/exhaustive-deps 
-        [filters]);
 
+    // update rendering tickets - user change checkbox
+    useEffect(() => {
+        sortTransfers(tickets, filters); setButtonHidden('showed'); setAddTicketsLength(5) }, // eslint-disable-next-line react-hooks/exhaustive-deps 
+        [filters]);  
+   
+    const onButtonAddTickets = () => {
+        if (showTicketsLength<updatedTickets.length ) {setAddTicketsLength(showTicketsLength+5)} else {setButtonHidden('hidden')};
+        if (showTicketsLength+5>updatedTickets.length) {setButtonHidden('hidden')}
+    }
 
             const Ticket = () => {
                 return (
@@ -75,13 +84,21 @@ const TicketsList = () => {
                     <h2 className={loading}>ИДЕТ ЗАГРУЗКА...</h2>
                 )
             }
+
+            const Button = () => {
+                let buttonClass = `${buttonAddLoading} ${buttonShowed}`
+                return (
+                    <button className={buttonClass} onClick={() => onButtonAddTickets()}>ПОКАЗАТЬ ЕЩЕ 5 БИЛЕТОВ</button>
+                )
+            }
             
                     return (
                         <ul className="ticket__ul"> 
                             <Loading />                        
                             <LoadingError />
                             <Ticket />
-                            <button className="ticket__button" onClick={() => setAddTicketsLength(showTicketsLength+5)}>ПОКАЗАТЬ ЕЩЕ 5 БИЛЕТОВ</button>
+                            <Button />
+                            
                         </ul>
                     )                
             

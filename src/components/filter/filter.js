@@ -1,7 +1,7 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext} from "react";
 import "./filter.scss";
 import { FilterContext } from "../../context/filter/filterContext";
-import { TabsContext } from "../../context/tabs/tabsContext";
+import backToTopButton from '../../images/backToTopButton.png'
 
 const Filter = () => {
     const {filters, onChangeCheckbox} = useContext(FilterContext);
@@ -13,7 +13,7 @@ const Filter = () => {
     }
 
     return (
-      
+        <React.Fragment>
         <section className="filter">
             <h2>КОЛИЧЕСТВО ПЕРЕСАДОК</h2>
             <ul>
@@ -45,6 +45,8 @@ const Filter = () => {
             </li>
             </ul>
         </section>
+        <a href="/#"><img className="backToTopButton" alt="backToTopButton" src={backToTopButton}></img></a>
+        </React.Fragment>
     )
 }
 

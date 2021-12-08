@@ -7,7 +7,7 @@ const Content = () => {
     return (
         <section className="content" >
             <Filter/>
-            <Tickets />
+            <Tickets />        
         </section>
     )
 }

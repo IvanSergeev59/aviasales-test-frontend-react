@@ -8,13 +8,12 @@ import { TabsState } from './context/tabs/tabsState';
 function App() {
   return (
     <TabsState>
-      <FilterState>
-        
+      <FilterState>        
           <Header />
-          <Content />
-       
+          <Content />     
       </FilterState>
       </TabsState>
+
   );
 }
 
